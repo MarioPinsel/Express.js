@@ -11,7 +11,7 @@ form.addEventListener("submit", async (e) => {
   };
 
   try {
-    const res = await fetch("http://localhost:4000/ejemplo3", {
+    const res = await fetch("http://localhost:4000/ejemplo1", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
