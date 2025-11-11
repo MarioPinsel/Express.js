@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Formulario de Login</title>
+</head>
+
+<body>
+  <h1>Enviar datos al backend</h1>
+
+  <!-- Formulario 1 -->
+<form id="loginForm1">
+  <label>
+    Nombre:
+    <input type="text" id="name1" required />
+  </label><br /><br />
+  <label>
+    Contraseña:
+    <input type="password" id="password1" required />
+  </label><br /><br />
+  <button type="submit">Enviar</button>
+</form>
+<hr />
+
+<!-- Formulario 2 -->
+<form id="loginForm2">
+  <label>
+    Nombre:
+    <input type="text" id="name2" required />
+  </label><br /><br />
+  <label>
+    Contraseña:
+    <input type="password" id="password2" required />
+  </label><br /><br />
+  <button type="submit">Enviar</button>
+</form>
+<hr />
+
+<!-- Formulario 3 -->
+<form id="loginForm3">
+  <label>
+    Nombre:
+    <input type="text" id="name3" required />
+  </label><br /><br />
+  <label>
+    Contraseña:
+    <input type="password" id="password3" required />
+  </label><br /><br />
+  <button type="submit">Enviar</button>
+</form>
+<hr />
+
+  <label>
+    Buscar usuario por nombre:
+    <input type="text" id="searchName" placeholder="Nombre a buscar" />
+  </label>
+  <button id="searchBtn">Buscar</button>
+  <div id="result"></div>
+  <hr />
+
+  <label>
+    Eliminar usuario por nombre:
+    <input type="text" id="deleteName" placeholder="Nombre a eliminar" />
+  </label>
+  <button id="deleteBtn">Eliminar</button>
+
+  <div id="deleteResult"></div>
+
+
+  <script type="module" src="src/main.js"></script>
+
+</body>
+
+</html>
