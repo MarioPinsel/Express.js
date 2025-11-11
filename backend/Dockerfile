@@ -13,6 +13,7 @@ RUN npm install
 # Copiar el resto del código
 COPY . .
 
+
 # Exponer el puerto del backend (ajústalo si usas otro)
 EXPOSE 4000
 
