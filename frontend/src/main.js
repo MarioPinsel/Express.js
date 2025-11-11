@@ -2,6 +2,55 @@ const form = document.getElementById("loginForm");
 const searchBtn = document.getElementById("searchBtn");
 const resultDiv = document.getElementById("result");
 
+document.getElementById("loginForm1").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const data = {
+    name: document.getElementById("name1").value,
+    password: document.getElementById("password1").value,
+  };
+  await enviarDatos("http://localhost:4000/ejemplo1", data);
+});
+
+document.getElementById("loginForm2").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const data = {
+    name: document.getElementById("name2").value,
+    password: document.getElementById("password2").value,
+  };
+  await enviarDatos("http://localhost:4000/ejemplo2", data);
+});
+
+document.getElementById("loginForm3").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const data = {
+    name: document.getElementById("name3").value,
+    password: document.getElementById("password3").value,
+  };
+  await enviarDatos("http://localhost:4000/ejemplo3", data);
+});
+
+
+async function enviarDatos(url, data) {
+  try {
+    const res = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+
+    if (!res.ok) {
+      const errorText = await res.text();
+      throw new Error(`Error ${res.status}: ${errorText}`);
+    }
+
+    const result = await res.json();
+    alert(`✅ ${result.message}`);
+    console.log(result);
+  } catch (err) {
+    console.error("❌ Error en POST:", err);
+  }
+}
+/*
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
@@ -11,7 +60,7 @@ form.addEventListener("submit", async (e) => {
   };
 
   try {
-    const res = await fetch("http://localhost:4000/ejemplo1", {
+    const res = await fetch("http://localhost:4000/ejemplo3", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
@@ -29,7 +78,7 @@ form.addEventListener("submit", async (e) => {
     console.error("❌ Error en POST:", err);
   }
 });
-
+*/
 searchBtn.addEventListener("click", async () => {
   const name = document.getElementById("searchName").value.trim();
   if (!name) return alert("Por favor ingresa un nombre");
