@@ -2,14 +2,6 @@ const form = document.getElementById("loginForm");
 const searchBtn = document.getElementById("searchBtn");
 const resultDiv = document.getElementById("result");
 
-document.getElementById("loginForm1").addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const data = {
-    name: document.getElementById("name1").value,
-    password: document.getElementById("password1").value,
-  };
-  await enviarDatos("http://localhost:4000/ejemplo1", data);
-});
 
 document.getElementById("loginForm2").addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -50,35 +42,7 @@ async function enviarDatos(url, data) {
     console.error("❌ Error en POST:", err);
   }
 }
-/*
-form.addEventListener("submit", async (e) => {
-  e.preventDefault();
 
-  const data = {
-    name: document.getElementById("name").value,
-    password: document.getElementById("password").value,
-  };
-
-  try {
-    const res = await fetch("http://localhost:4000/ejemplo3", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    });
-
-    if (!res.ok) {
-      const errorText = await res.text();
-      throw new Error(`Error ${res.status}: ${errorText}`);
-    }
-
-    const result = await res.json();
-    alert(`✅ ${result.message}`);
-    console.log(result);
-  } catch (err) {
-    console.error("❌ Error en POST:", err);
-  }
-});
-*/
 searchBtn.addEventListener("click", async () => {
   const name = document.getElementById("searchName").value.trim();
   if (!name) return alert("Por favor ingresa un nombre");
