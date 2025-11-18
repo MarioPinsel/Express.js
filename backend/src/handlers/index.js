@@ -1,29 +1,8 @@
 import User from "../models/Users.js"
 import { validationResult } from "express-validator"
-import { hashPassword } from "../utils/auth.js";
+import { hashPassword, checkPassword } from "../utils/auth.js";
 
 
-export const createUser = async (req, res) => {
-    const { name } = req.body;
-
-    try {
-        const userExists = await User.findOne({ name });
-
-        if (userExists) {
-            return res.status(400).json({ error: 'El usuario ya existe' });
-        }
-
-        const user = new User(req.body)
-        await user.save();
-
-        res.status(201).json({ message: 'Usuario creado exitosamente' });
-        console.log("BODY RECIBIDO:", req.body);
-
-
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-}
 export const loginUser = async (req, res) => {
 
     let errors = validationResult(req);
@@ -38,8 +17,9 @@ export const loginUser = async (req, res) => {
         if (!user) {
             return res.status(400).json({ error: 'Usuario no encontrado' });
         }
-
-        if (user.password !== password) {
+        const result = await checkPassword(password,user.password);
+        
+        if (!result) {
             return res.status(401).json({ error: 'Credenciales inválidas' });
         }
 
@@ -48,26 +28,22 @@ export const loginUser = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 }
+
 export const createUserBycrypt = async (req, res) => {
-    const { name, password } = req.body;
+    /*       
+        La función createUserBycrypt recibe los datos del usuario desde req.body.
+        Primero utiliza User.findOne() para verificar si ya existe un usuario con el mismo nombre.
+        Si esa consulta devuelve un resultado, se envía una respuesta con un error indicando que el usuario ya existe.
 
-    try {
-        const userExists = await User.findOne({ name });
+        Si el usuario no existe, la función llama a hashPassword() para encriptar la contraseña original.
+        Luego crea una nueva instancia del modelo usando new User() y le asigna el nombre junto con la contraseña encriptada.
 
-        if (userExists) {
-            return res.status(400).json({ error: 'El usuario ya existe' });
-        }
-
-        const hashedPassword = await hashPassword(password);
-        const user = new User({ name, password: hashedPassword });
-
-        await user.save();
-
-        res.status(201).json({ message: "Ha sido registrado correctamente" });
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
+        Después, la función guarda el nuevo usuario en la base de datos mediante user.save().
+        Finalmente, envía una respuesta con un código 201 indicando que el registro fue exitoso.    
+        Si ocurre cualquier error durante el proceso, ese error es capturado por el bloque catch y se envía una respuesta con un estado 500 usando res.status(500).json()        
+    */ 
 }
+
 export const getUsers = async (req, res) => {
     try {
         const { name } = req.query;
